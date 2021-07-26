@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+html {
+  font-size: 10px;
+  background: url('https://c0.wallpaperflare.com/preview/730/977/271/drums-set-people-man.jpg') bottom center;
+  background-size: cover;
+}
+
+body,html {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.keys {
+  display: flex;
+  flex: 1;
+  min-height: 80vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.key {
+  border: .4rem solid black;
+  border-radius: .5rem;
+  margin: 1rem;
+  font-size: 1.5rem;
+  padding: 1rem .5rem;
+  transition: all .08s ease;
+  width: 10rem;
+  text-align: center;
+  color: white;
+  background: rgba(0,0,0,0.4);
+  text-shadow: 0 0 .5rem black;
+}
+
+.playing {
+  transform: scale(1.1);
+  border-color: #ffc600;
+  box-shadow: 0 0 1rem #ffc600;
+}
+
+kbd {
+  display: block;
+  font-size: 4rem;
+}
+
+.sound {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  color: #ffc600;
+}
+#butt {
+  width: 50rem;
+  height:10rem;
+  border: .4rem solid black;
+  border-radius: .5rem;
+  padding:1.5rem 10rem 1.5rem 10rem;
+  margin:4rem 4rem 0rem 50rem;
+  font-size: 2rem;
+  color: #ffc600;
+  background: rgba(0,0,0,0.4);
+  text-shadow: 0 0 .5rem black;
+}
+#butt1,#butt2 {
+  border: .4rem solid black;
+  border-radius: .5rem;
+  margin:0.5rem 1rem 0rem 1rem;
+  font-size: 1.5rem;
+  padding: 1.5rem 1.5rem;
+  width: 10rem;
+  text-align: center;
+  color: white;
+  background: rgba(0,0,0,0.4);
+  text-shadow: 0 0 .5rem black;
+}
+#butt:hover{transform: scale(1.1);
+  background: rgba(0,0,0,0.8);}
+#butt2:hover{transform: scale(1.1);
+  background: rgba(0,0,0,0.8);}
+</style>
+<body>
+  <button id="butt">You have to click the right button<br><b>START</b></button>
+  <button id="butt2">TIMER<br><p style="font-size:1rem; color: #ffc600; text-transform: uppercase;">click to restart</p></button>
+  <button id="butt1" style="background:rgba(0,0,0,0.8);">SCORE</button>
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">bass</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">chime</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">flute</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">piano</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">squish</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">whoosh</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">drum</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">violin</span>
+    </div>
+  </div>
+
+
+  <audio data-key="65" src="https://assets.mixkit.co/sfx/download/mixkit-spring-metal-hit-2302.wav"></audio>
+  <audio data-key="83" src="https://assets.mixkit.co/sfx/download/mixkit-page-back-chime-1108.wav"></audio>
+  <audio data-key="68" src="https://assets.mixkit.co/sfx/download/mixkit-flute-mobile-phone-notification-alert-2316.wav"></audio>
+  <audio data-key="70" src="https://assets.mixkit.co/sfx/download/mixkit-losing-piano-2024.wav"></audio>
+  <audio data-key="71" src="https://assets.mixkit.co/sfx/download/mixkit-mech-stomp-squish-3047.wav"></audio>
+  <audio data-key="72" src="https://assets.mixkit.co/sfx/download/mixkit-metal-hit-woosh-1485.wav"></audio>
+  <audio data-key="74" src="https://assets.mixkit.co/sfx/download/mixkit-short-bass-hit-2299.wav"></audio>
+  <audio data-key="75" src="https://assets.mixkit.co/sfx/download/mixkit-hand-tribal-drum-562.wav"></audio>
+  <audio data-key="76" src="https://assets.mixkit.co/sfx/download/mixkit-orchestral-violin-jingle-2280.wav"></audio>
+
+<script>
+var myobject= {A:'65',S:'83',D:'68',F:'70',G:'71',H:'72',J:'74',K:'75',L:'76'};
+var keynames= Object.keys(myobject);
+var value= Object.values(myobject);
+function final(e){
+  const r = Math.floor(Math.random()*10)
+  document.getElementById('butt').innerHTML=keynames[r]
+}
+
+function timer(){
+  var d = new Date();
+  var d1= d.getSeconds();
+  var myvar=setInterval(mytimer,1000)
+
+  function mytimer(){
+    d2=(new Date()).getSeconds();
+    if (Math.sign(d1-d2-30)==-1){d=60+(d1-d2-30)}
+    else{d=d1-d2-30}
+    document.getElementById("butt2").innerHTML = "Time:"+d;
+    if (d==0){
+      document.getElementById("butt2").innerHTML = "Time Over!!";
+      clearInterval(myvar);
+      setTimeout(function(){window.location.reload()},5000)
+    }
+}
+}
+document.getElementById("butt").addEventListener("click",final);
+document.getElementById("butt").addEventListener("click",timer);
+document.getElementById("butt").addEventListener("click",function(){
+  document.getElementById("butt1").innerHTML=0});
+document.getElementById("butt2").addEventListener("click", function(){window.location.reload()});
+
+function soundeffect(e){
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+  const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+  if (!audio) return;
+  audio.currentTime= 0;
+  audio.play()
+  key.classList.add('playing')
+  key.addEventListener('transitionend',function(e){key.classList.remove('playing')});
+
+  var x=(document.getElementById('butt').innerHTML).charCodeAt(0)
+  var y=document.getElementById('butt1')
+  if (x==e.keyCode){
+    y.innerHTML=(parseInt(y.innerHTML)+1);
+  }
+  if (x!=e.keyCode){
+    y.innerHTML=(parseInt(y.innerHTML)-1);
+  }
+  document.getElementById('butt1').classList.add('playing');
+  setTimeout(function(){document.getElementById('butt1').classList.remove('playing');},50);
+  console.log(y)
+}
+
+window.addEventListener('keydown',soundeffect);
+window.addEventListener('keydown',final);
+
+</script>
+
+</body>
+</html>

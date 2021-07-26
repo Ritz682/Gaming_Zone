@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+</head>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Codystar:300&display=swap');
+
+header{
+  position: fixed;
+}
+.container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-family: 'Codystar';
+}
+
+.neons {
+   margin-top: 1rem;
+   text-align: center;
+}
+
+.neons h1 {
+  font-size: 3.5vw;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  -webkit-animation: glow 2s ease-in-out infinite alternate;
+  -moz-animation: glow 2s ease-in-out infinite alternate;
+  animation: glow 2s ease-in-out infinite alternate;
+  width: 100%;
+}
+
+@-webkit-keyframes glow {
+     from {
+      color: #fff;
+    text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px #00fff2, 0 0 40px #00fff2, 0 0 50px #00fff2, 0 0 60px #00fff2, 0 0 70px #00fff2, 0 0 90px #00fff2;
+  }
+
+  to {
+     color: gray;
+    text-shadow: 0 0 20px red, 0 0 30px red, 0 0 40px red, 0 0 50px red, 0 0 60px red, 0 0 70px red, 0 0 80px red, 0 1 90px red;
+  }
+}
+body{
+  background-image: url("https://us.123rf.com/450wm/volmon/volmon1709/volmon170900020/85425828-dark-gray-and-red-hexagons-modern-geometrical-vector-abstract-background-polygon-concept-with-modern.jpg?ver=6");
+}
+.wrapper{
+  position:absolute;
+  top:50%;
+  left:50%;
+  perspective: 1500px;
+}
+.box-area{
+  position: relative;
+  transform-style: preserve-3d;
+  animation-name: rotate;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes rotate {
+  0%{
+    transform:rotate3d(0,0,0,0);
+  }
+  100%{
+    transform:rotate3d(0,1,0,-360deg);
+  }
+}
+.box{
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border: 2px solid #b3ffff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  align-items: center;
+  text-align: center;
+}
+p{
+  margin-top:40%;
+  text-shadow: 0 0 15px red;
+}
+.box-front{
+  transform: translateX(-150px) translateY(-150px) translateZ(150px);
+  background: rgba(125,255,255, 0.5);
+  box-shadow: 0 0 5rem #b3ffff;
+}
+.box-back{
+  transform: translateX(-150px) translateY(-150px) translateZ(-150px);
+  background: rgba(125,255,255, 0.2);
+  box-shadow: 0 0 5rem #b3ffff;
+}
+.box-right{
+  transform: translateY(-150px) rotateY(90deg);
+  background: rgba(125,255,255, 0.2);
+  box-shadow: 0 0 5rem #b3ffff;
+}
+.box-left{
+  transform: translateY(-150px) translateX(-300px) rotateY(90deg);
+  background: rgba(125,255,255,0.5);
+  box-shadow: 0 0 5rem #b3ffff;
+}
+.box-top{
+  transform: translateX(-150px) translateY(-300px) rotateX(90deg);
+  background: rgba(125,255,255, 0.2);
+  box-shadow: 0 0 5rem #b3ffff;
+}
+.box-bottom{
+  transform: translateX(-150px) rotateX(90deg);
+  background: rgba(125,255,255, 0.2);
+  box-shadow: 0 0 10rem #b3ffff;
+}
+.wrapper:hover{
+  transform: scale(1.1);
+
+}
+audio{
+  display: none;
+}
+</style>
+<body>
+  <div class="container">
+   <div class="row">
+      <div class="neons col-12">
+         <h1><em>__GAMING--ZONE__________________________________</em></h1>
+      </div>
+   </div>
+</div>
+<main>
+  <div class="wrapper">
+    <div class="box-area">
+      <div class="box box-front" onclick="window.location='Obstacle game.htm'"><p>OBSTACLE GAME</p></div>
+      <div class="box box-right" onclick="window.location='drumkit.html'"><p>DRUM KIT GAME</p></div>
+      <div class="box box-top"></div>
+      <div class="box box-back" onclick="window.location='Snake Game.htm'"><p style="transform:scale(-1,1)">SNAKE GAME</p></div>
+      <div class="box box-left" onclick="window.location='clock.html'"><p style="transform:scale(-1,1)">CLOCK</p></div>
+      <div class="box box-bottom"></div>
+    </div>
+  </div>
+</main>
+<audio controls autoplay>
+  <source src="https://assets.mixkit.co/sfx/download/mixkit-magic-glitter-or-particles-2352.wav3" >
+</audio>
+</body>
+</html>
